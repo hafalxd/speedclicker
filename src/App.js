@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Countdown from 'react-countdown';
 import { Chart, BarElement, BarController, LinearScale, CategoryScale } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 import CountdownProgressBar from './components/CountdownProgressBar';
+import ResultsModal from './components/ResultsModal';
 
 
 Chart.register(BarElement, BarController, LinearScale, CategoryScale);
@@ -114,12 +114,6 @@ function App() {
         </button>
       )}
 
-      {countdownCompleted && secondCountdownStarted && testFinished && (
-        <div>
-          <button onClick={handleRetry}>Retry</button>
-        </div>
-      )}
-
       {startCountdown && !countdownCompleted && (
         <Countdown
           date={Date.now() + 3000}
@@ -150,14 +144,17 @@ function App() {
         />
       )}
 
-      {countdownCompleted && secondCountdownStarted && testFinished && (
-        <div>
-          <h2>Your score: {clickCount} clicks in 5 seconds</h2>
-          <Bar data={chartData} options={chartOptions} />
-        </div>
+      {testFinished && (
+        <ResultsModal
+          clickCount={clickCount}
+          chartData={chartData}
+          chartOptions={chartOptions}
+          onRetry={handleRetry}
+        />
       )}
-
     </div>
+
+
   );
 }
 
