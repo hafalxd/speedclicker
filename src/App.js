@@ -3,6 +3,8 @@ import Countdown from 'react-countdown';
 import { Chart, BarElement, BarController, LinearScale, CategoryScale } from 'chart.js';
 import CountdownProgressBar from './components/CountdownProgressBar';
 import ResultsModal from './components/ResultsModal';
+import 'bootstrap/dist/css/bootstrap.css';
+import './App.css';
 
 
 Chart.register(BarElement, BarController, LinearScale, CategoryScale);
@@ -97,23 +99,27 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App d-flex flex-column vh-100 justify-content-center align-items-center">
       <h1>Clicking Speed Test</h1>
-
-      {!startCountdown && (
-        <button onClick={handleStart}>Start Clicking Speed Test</button>
-      )}
-
-      {startCountdown && (
-        <button
-          ref={clickCounterRef}
-          onClick={handleClick}
-          disabled={!countdownCompleted || (secondCountdownStarted && testFinished)}
-        >
-          Click me!
-        </button>
-      )}
-
+      <div className="button-wrapper" style={{ minHeight: '60px' }}>
+        {!startCountdown && (
+          <button className="btn btn-primary btn-lg" onClick={handleStart}>
+            Start Clicking Speed Test
+          </button>
+        )}
+  
+        {startCountdown && (
+          <button
+            className="btn btn-primary btn-lg"
+            ref={clickCounterRef}
+            onClick={handleClick}
+            disabled={!countdownCompleted || (secondCountdownStarted && testFinished)}
+          >
+            Click me!
+          </button>
+        )}
+      </div>
+  
       {startCountdown && !countdownCompleted && (
         <Countdown
           date={Date.now() + 3000}
@@ -125,7 +131,7 @@ function App() {
           )}
         />
       )}
-
+  
       {countdownCompleted && secondCountdownStarted && (
         <Countdown
           date={secondCountdownEndTime}
@@ -143,7 +149,7 @@ function App() {
           )}
         />
       )}
-
+  
       {testFinished && (
         <ResultsModal
           clickCount={clickCount}
@@ -153,8 +159,6 @@ function App() {
         />
       )}
     </div>
-
-
   );
 }
 

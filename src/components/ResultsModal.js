@@ -1,5 +1,6 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function ResultsModal({ clickCount, chartData, chartOptions, onRetry }) {
   return (
@@ -27,7 +28,7 @@ function ResultsModal({ clickCount, chartData, chartOptions, onRetry }) {
       >
         <h2>Your score: {clickCount} clicks in 5 seconds</h2>
         <Bar data={chartData} options={chartOptions} />
-        <button onClick={onRetry}>Retry</button>
+        <button className='btn btn-primary retryButton' onClick={onRetry}>Retry</button>
       </div>
     </div>
   );
